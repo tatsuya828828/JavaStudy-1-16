@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class Main {
 	public static void main(String[] args) {
@@ -51,8 +52,18 @@ public class Main {
 			 System.out.println(e);
 		 }
 
+
+
 		// 基本型とラッパークラスを変換したい場合はvalueOf()やValue()を使う
 		Integer i1 = Integer.valueOf(16);
 		int i2 = i1.intValue();
+	}
+
+	// List型として受け取ればArrayListやそれ以外のリストで受け取ることができ利便性が増すd
+	// 引数・戻り値・ローカル変数には、極力曖昧な型を利用できればメリットがあるので、積極的に活用する
+	public static void printList(List<String> list) {
+		for(String s: list) {
+			System.out.println(s);
+		}
 	}
 }
