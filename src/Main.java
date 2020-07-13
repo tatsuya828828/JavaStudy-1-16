@@ -1,69 +1,51 @@
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Main {
 	public static void main(String[] args) {
-		// ArrayListはどんな方のインスタンスでも格納できるがインスタンスでないものは格納できない
-		// 基本データを格納したい場合はwrapperクラスを用いることで格納することができる
-		// wrapperクラスは型によって違うクラスを使う
-		// 以下はIntegerクラスを使って格納している
-		ArrayList<Integer> points = new ArrayList<Integer>();
-		// 要素を格納する際にはadd()またはset()を使う
-		// add()は、追加する要素だけ引数に渡すと末尾に追加される
-		// また、0から始まるint値と要素の二つを渡すと、
-		// add()では、intの位置に要素が挿入される
-		// set()では、指定位置の要素を上書きして置き換え、古い要素を戻り値として返す。
-		points.add(10);
-		points.add(80);
-		points.add(75);
-		// 要素はget()で取り出すことができる
-		System.out.println("pointsの一番初めの要素の数字は"+ points.get(0));
-		// ArrayListの要素数を調べる際はsizeメソッドを使う
-		// 要素が0かどうか調べる際はisEmptyを使った方が可読性が上がる
-		System.out.println("pointsの要素数は"+ points.size());
-		// containsメソッドを使えば引数の内容が格納されているかどうか調べることもできる
-		System.out.println(points.contains(10));
-		// indexOfメソッドを使えば何番目に格納されているのかを調べることもできる
-		// 以下では先頭が0になるためわかりやすくなるよう+1をしている
-		System.out.println("pointsのなかで10が格納されているのは"+ (points.indexOf(10)+1) +"番目です");
-		for(int i: points) {
-			System.out.println(i);
+		// CollectionインターフェースにはListインターフェース (ArrayListクラスやLinkedListクラス)の他に
+		// Setインターフェース(HashSetクラスやLinkedHashSetクラスやTreeSetクラス)もある
+		// Set関連クラスは複数の情報を重複なく格納する集合(Set)というデータ構造を実現するためのもので
+		// それぞれの要素に順序がないことが一般的である
+		// Setはそれぞれの要素には重複が許されない、また順序関係がない
+		Set<String> colors = new HashSet<>();
+		colors.add("赤");
+		colors.add("青");
+		colors.add("緑");
+		colors.add("黒");
+		// 赤は既に格納されているため格納されない
+		colors.add("赤");
+		System.out.print("HashSet:");
+		// 順序関係がないためget()やset()は使えない
+		// HashSetに格納された値は拡張for文やIteratorが使って取り出せるが取り出される順序は保証されない
+		for(String s: colors) {
+			System.out.print(s +"→");
 		}
-		// removeメソッドを使うことによって要素を削除することができる
-		// 要素を削除した場合、後ろの要素が一つずつ前に詰められる
-		// また、全て削除したい場合は、clearメソッドを使う
-		points.remove(0);
-		System.out.println("pointsの先頭の要素は"+ points.get(0));
 
-		 ArrayList<String> names = new ArrayList<String>();
-		 names.add("湊");
-		 names.add("朝香");
-		 names.add("菅原");
+		System.out.println();
+		// LinkedHashSetであれば値を格納した順序に整列する
+		Set<String> colors2 = new LinkedHashSet<>();
+		colors2.add("赤");
+		colors2.add("青");
+		colors2.add("緑");
+		colors2.add("黒");
+		System.out.print("LinkedHashSet:");
+		for(String s: colors2) {
+			System.out.print(s +"→");
+		}
 
-		 // forや拡張for文、また、Iteratorを用いることによって要素を順番に取り出すこともできる
-		 // Iteratorは先頭から要素を取り出し次の箱を指し、次の要素を取り出すといった形で一つずつ取り出す
-		 // 呼び出されると、最初の要素よりももっと前を指した状態が取得される
-		 Iterator<String> it = names.iterator();
-		 // 次の要素に進めるかを判定
-		 while(it.hasNext()) {
-			 // 次の要素を指し、その内容を返す
-			 String e = it.next();
-			 System.out.println(e);
-		 }
-
-
-
-		// 基本型とラッパークラスを変換したい場合はvalueOf()やValue()を使う
-		Integer i1 = Integer.valueOf(16);
-		int i2 = i1.intValue();
-	}
-
-	// List型として受け取ればArrayListやそれ以外のリストで受け取ることができ利便性が増すd
-	// 引数・戻り値・ローカル変数には、極力曖昧な型を利用できればメリットがあるので、積極的に活用する
-	public static void printList(List<String> list) {
-		for(String s: list) {
-			System.out.println(s);
+		System.out.println();
+		// TreeSetであれば自然順序づけで整列する
+		Set<String> animals = new TreeSet<String>();
+		animals.add("dog");
+		animals.add("cat");
+		animals.add("wolf");
+		animals.add("panda");
+		System.out.print("TreeSet:");
+		for(String s: animals) {
+			System.out.print(s +"→");
 		}
 	}
 }
